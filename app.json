@@ -1,0 +1,19 @@
+{
+  "name": "Slack_TicTacToe",
+  "description": "A text based Tic-Tac-Toe game playable in Slack channel",
+  "keywords": ["TicTacToe", "Slack", "slack", "game"],
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/java"
+    }
+  ]
+}
