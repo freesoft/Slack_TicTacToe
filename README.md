@@ -83,4 +83,4 @@ If you don't want to keep continuing the game, then you can draw the game using 
 /ttt draw
 ```
 
-You can only draw the game when it's your turn.
+You can only draw the game whenever you want for now since current code doesn't know if opponent username exists in the channel when game is created, and starting a game with non-existing username will cause the game to wait forever.
