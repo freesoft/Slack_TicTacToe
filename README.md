@@ -86,3 +86,8 @@ If you don't want to keep continuing the game, then you can draw the game using 
 ```
 
 You can only draw the game whenever you want for now since current code doesn't know if opponent username exists in the channel when game is created, and starting a game with non-existing username will cause the game to wait forever.
+
+
+# Copyright and License
+
+Copyright (c) 2016 Wonhee Jung, the code is distrubited under [MIT License](LICENSE.md).
