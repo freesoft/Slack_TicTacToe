@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/freesoft/Slack_TicTacToe.svg?branch=master)](https://travis-ci.org/freesoft/Slack_TicTacToe)
+
 # Tic-tac-toe custom command program for Slack channel
 
 This project implements tic-tac-toe (3x3 for now) playable in Slack channel using Spring Boot. You only needs built jar file to run it in the server(Heroku, your local PC, wherever) + JVM installed. To build a project, you need Maven 3+, Java 8+ installed in the build machine.
