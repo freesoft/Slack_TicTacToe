@@ -22,7 +22,7 @@ if not using spring-boot:run with mvn or want to run using built JAR file only u
 java -jar slack_tictactoe*.jar
 ```
 
-will also work. Or you can simply click following "deploy to Heroku" button if running on Heroku, although you still need to set up Slack token value either in running host or through Heroku config.
+will also work. Or you can simply click following "deploy to Heroku" button if running on Heroku. The link will ask you to add Slack token when creating new app & runnning on Heroku.
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 # Set up a Slack channel
