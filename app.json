@@ -5,6 +5,10 @@
   "scripts": {
   },
   "env": {
+    "SLACK_TTT_TOKEN": {
+      "description": "Your Slack team's token value.",
+      "value": "REPLACE_THIS_TO_YOURS"
+    }
   },
   "formation": {
   },
