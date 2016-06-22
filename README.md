@@ -44,6 +44,16 @@ heroku config:set SLACK_TTT_TOKEN=your token value
 ```
 in Heroku CLI, or through your Heroku web interface.
 
+Also, to be able to check if opponent exist in the Slack channel and eligible to play, you need to create bot and invite it to the channel you'd like to play a game.
+What you actually need is API key generated when you set a bot in your team Slack. This server code is going to use Bot API token to access your team Slack and check user information.
+Same as SLACK_TTT_TOKEN, but now you need to set SLACK_BOT_TOKEN. If you install this application on Heroku using "deploy to Heroku" button, Heroku will ask you to add SLACK_BOT_TOKEN.
+Or you can do it on Heroku config var page or through Heroku CLI.
+```
+heroku config:set SLACK_BOT_TOKEN=your token value
+```
+
+If not, than you can simly define those in environment variable of your OS, or through JVM parameter.
+
 # How to Play
 
 To start new tic-tac-toc, you need to input following command with username on the channel.

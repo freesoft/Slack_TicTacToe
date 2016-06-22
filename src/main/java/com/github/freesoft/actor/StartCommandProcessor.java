@@ -6,9 +6,19 @@ import com.github.freesoft.model.Game;
 import com.github.freesoft.model.InChannelMessage;
 import com.github.freesoft.model.Message;
 import com.github.freesoft.model.SlackCommand;
+import com.ullink.slack.simpleslackapi.SlackChannel;
+import com.ullink.slack.simpleslackapi.SlackSession;
+import com.ullink.slack.simpleslackapi.SlackUser;
+import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * process start command
@@ -18,6 +28,9 @@ import java.util.Map;
 @Service
 public class StartCommandProcessor implements CommandProcessor {
     private static final String COMMAND_SEPARATOR = TicTacToeController.COMMAND_SEPARATOR;
+
+    @Autowired
+    private Environment environment;
 
     @Override
     public Message process(SlackCommand slackCommand, Map<String, Game> gameInfoList) {
@@ -50,6 +63,30 @@ public class StartCommandProcessor implements CommandProcessor {
             catch(NumberFormatException e){
                 return new EphemeralMessage("Board size parameter should be given as number format.");
             }
+        }
+
+        final String SLACK_BOT_TOKEN = environment.getProperty("SLACK_BOT_TOKEN");
+        
+        // check if opponent exists in the channel
+        SlackSession session = SlackSessionFactory.createWebSocketSlackSession(SLACK_BOT_TOKEN);
+        try {
+            session.connect();
+        } catch (IOException e) {
+            return new InChannelMessage("Can't make Slack connection with given Slack bot token value. token : " + SLACK_BOT_TOKEN);
+        }
+        SlackChannel slackChannel = session.findChannelById(slackCommand.getChannelId());
+        if (slackChannel == null){
+            return new InChannelMessage("Can't find channel id " + slackCommand.getChannelId());
+        }
+        Collection<SlackUser> users = slackChannel.getMembers();
+        if (users == null || users.isEmpty()){
+            return new InChannelMessage("Can't find player 2 " + opponentUserName + " in the channel name "
+                    + slackCommand.getChannelName() + ". Available Slack username for game : " + Arrays.toString(users.toArray()));
+        }
+
+        Optional<SlackUser> oppUser = users.stream().filter( slackuser -> slackuser.getUserName().equals(opponentUserName) ).findFirst();
+        if (!oppUser.isPresent()){
+            return new InChannelMessage("User name " + opponentUserName + " doesn't exist in the given channel.");
         }
 
         Game game = new Game(boardSize, slackCommand.getUserName(), opponentUserName);
